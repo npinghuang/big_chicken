@@ -272,15 +272,15 @@ int camera(){
         ROS_INFO("2nd call cup x [%d] y [%d] color [%d]", srv.response.coordinate_camera[0],srv.response.coordinate_camera[1], srv.response.cup_color_camera );
         if ( srv.response.cup_color_camera == 0){ // green cup :  get cup using right side hand
             
-            ROS_INFO(" [0] %d, hand %d = %f",cup_pos_current[0], hand_x_r, double(cup_pos_current[0] - hand_x_r));
-            ROS_INFO("atan(0), %f", atan2( double( cup_pos_current[1]), double(cup_pos_current[0] - hand_x_r)));
-            angle_hand = M_PI_2 - atan2( double( cup_pos_current[1]), -double(cup_pos_current[0] - hand_x_r));
-            ROS_INFO("angle rad, %f, y %f, x %d", angle_hand, double( cup_pos_current[1]), (cup_pos_current[0] - hand_x_r));
+            ROS_INFO(" [0] %d, hand %d = %f",srv.response.coordinate_camera[0], hand_x_r, double(srv.response.coordinate_camera[0] - hand_x_r));
+            ROS_INFO("atan(0), %f", atan2( double( srv.response.coordinate_camera[1]), double(srv.response.coordinate_camera[0] - hand_x_r)));
+            angle_hand = M_PI_2 - atan2( double( srv.response.coordinate_camera[1]), -double(srv.response.coordinate_camera[0] - hand_x_r));
+            ROS_INFO("angle rad, %f, y %f, x %d", angle_hand, double( srv.response.coordinate_camera[1]), (srv.response.coordinate_camera[0] - hand_x_r));
             angle_hand = angle_hand * 180  / M_PI; // tranform unit from rad to degree
             ROS_INFO("angle degree %f", angle_hand);
         }
         else if ( srv.response.cup_color_camera == 1){ // red cup :  get cup using left side hand
-            angle_hand = M_PI_2 -atan2( double( cup_pos_current[1]), -double(cup_pos_current[0] - hand_x_l));
+            angle_hand = M_PI_2 -atan2( double( srv.response.coordinate_camera[1]), -double(srv.response.coordinate_camera[0] - hand_x_l));
             angle_hand = angle_hand * 180  / M_PI; // tranform unit from rad to degree
         }
         else if ( srv.response.cup_color_camera == -1){ // no cup
